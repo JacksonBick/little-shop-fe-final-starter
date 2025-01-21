@@ -233,23 +233,46 @@ function displayMerchantItems(event) {
 }
 
 function getMerchantCoupons(event) {
-  let merchantId = event.target.closest("article").id.split('-')[1]
-  console.log("Merchant ID:", merchantId)
+  let merchantId = event.target.closest("article").id.split('-')[1]; // Get the merchant's ID
+  console.log("Merchant ID:", merchantId);
 
-  fetchData(`merchants/${merchantId}`)
-  .then(couponData => {
-    console.log("Coupon data from fetch:", couponData)
-    displayMerchantCoupons(couponData);
-  })
+  hide([addNewButton]);
+
+  showingText.innerText = ` All Coupons for Merchant #${merchantId}`;
+
+  // Fetch coupons for the specific merchant using the correct endpoint
+  fetchData(`merchants/${merchantId}/coupons`)
+    .then(couponsData => {
+      console.log("Coupons data from fetch:", couponsData);
+      displayMerchantCoupons(couponsData.data); // Assuming the API response contains a 'data' array
+    })
+    .catch(err => {
+      console.log('Error fetching coupons:', err);
+      showStatus('Failed to load coupons!', false);
+    });
 }
 
 function displayMerchantCoupons(coupons) {
-  show([couponsView])
-  hide([merchantsView, itemsView])
+  show([couponsView]);
+  hide([merchantsView, itemsView]);
 
-  couponsView.innerHTML = `
-    <p>Coupon data will go here.</p>
-  `
+  if (coupons.length === 0) {
+    couponsView.innerHTML = `<p>No coupons available for this merchant.</p>`;
+    return;
+  }
+
+  couponsView.innerHTML = ''; // Clear previous content
+
+  coupons.forEach(coupon => {
+    couponsView.innerHTML += `
+      <article class="coupon" id="coupon-${coupon.id}">
+        <h3>${coupon.attributes.name}</h3>
+        <p>Discount: ${coupon.attributes.discount}%</p>
+        <p>Valid Until: ${coupon.attributes.expiry_date}</p>
+        <p>Description: ${coupon.attributes.description}</p>
+      </article>
+    `;
+  });
 }
 
 //Helper Functions
