@@ -233,18 +233,17 @@ function displayMerchantItems(event) {
 }
 
 function getMerchantCoupons(event) {
-  let merchantId = event.target.closest("article").id.split('-')[1]; // Get the merchant's ID
+  let merchantId = event.target.closest("article").id.split('-')[1]; 
   console.log("Merchant ID:", merchantId);
 
   hide([addNewButton]);
 
   showingText.innerText = ` All Coupons for Merchant #${merchantId}`;
 
-  // Fetch coupons for the specific merchant using the correct endpoint
   fetchData(`merchants/${merchantId}/coupons`)
     .then(couponsData => {
       console.log("Coupons data from fetch:", couponsData);
-      displayMerchantCoupons(couponsData.data); // Assuming the API response contains a 'data' array
+      displayMerchantCoupons(couponsData.data); 
     })
     .catch(err => {
       console.log('Error fetching coupons:', err);
@@ -261,7 +260,7 @@ function displayMerchantCoupons(coupons) {
     return;
   }
 
-  couponsView.innerHTML = ''; // Clear previous content
+  couponsView.innerHTML = ''; 
 
   coupons.forEach(coupon => {
     couponsView.innerHTML += `
