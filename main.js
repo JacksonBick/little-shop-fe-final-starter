@@ -249,6 +249,7 @@ function displayMerchantCoupons(coupons, merchantId) {
 
   show([couponsView])
   hide([merchantsView, itemsView])
+  hide([addNewButton])
 
   couponsView.innerHTML = ''
 
