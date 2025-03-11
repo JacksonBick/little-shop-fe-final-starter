@@ -196,6 +196,39 @@ h3 {
   color: var(--red);
 }
 
+.coupon {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.coupon:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.coupon h4 {
+  font-size: 1.2em;
+  color: var(--charcoal);
+}
+
+.coupon p {
+  margin: 5px;
+  color: var(--charcoal);
+}
+
+.coupons-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 /* STATUS MESSAGES */
 .success {
   color: var(--green);
